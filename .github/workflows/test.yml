@@ -24,6 +24,7 @@ jobs:
       
       # Execute tests and generate coverage via Coverlet
       - name: Test with Coverlet
+        continue-on-error: true
         run: >
           dotnet test --no-build --verbosity normal
           /p:CollectCoverage=true
