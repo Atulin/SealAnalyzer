@@ -31,6 +31,7 @@ public class SealPublicClassesGeneratorTests
             /// </summary>
             [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute]
             [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+            [global::Microsoft.CodeAnalysis.EmbeddedAttribute]
             [global::System.CodeDom.Compiler.GeneratedCode("SealAnalyzer", "1.0.0.0")]
             [global::System.AttributeUsage(global::System.AttributeTargets.Assembly, AllowMultiple = false)]
             internal sealed class SealPublicClassesAttribute : global::System.Attribute 
@@ -72,6 +73,7 @@ public class SealPublicClassesGeneratorTests
             /// </summary>
             [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute]
             [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+            [global::Microsoft.CodeAnalysis.EmbeddedAttribute]
             [global::System.CodeDom.Compiler.GeneratedCode("SealAnalyzer", "1.0.0.0")]
             [global::System.AttributeUsage(global::System.AttributeTargets.Assembly, AllowMultiple = false)]
             internal sealed class SealPublicClassesAttribute : global::System.Attribute 

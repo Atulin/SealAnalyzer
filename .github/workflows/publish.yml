@@ -23,8 +23,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build and Pack
-        run: dotnet pack -c Release -o out--no-restore
+      - name: Build
+        run: dotnet build --no-restore
+        
+      - name: Pack
+        run: dotnet pack --no-build -c Release -o out .nuspec
 
       - name: NuGet.org registry Login
         uses: NuGet/login@v1

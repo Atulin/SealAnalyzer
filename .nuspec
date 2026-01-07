@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>Atulin.SealAnalyzer</id>
+        <version>1.0.0</version>
+        <authors>Atulin</authors>
+        <description>Analyzes classes and records that can be sealed.</description>
+        <tags>analyzer source-generator code-fix roslyn</tags>
+        <license type="MIT"/>
+        <repository>https://github.com/Atulin/SealAnalyzer</repository>
+        <projectUrl>https://github.com/Atulin/SealAnalyzer</projectUrl>
+    </metadata>
+    <files>
+        <file src=".\SealAnalyzer\bin\Release\**\*.dll" target="analyzers/dotnet/cs" />
+        <file src=".\SealAnalyzer.CodeFixes\bin\Release\**\*.dll" target="analyzers/dotnet/cs" />
+        <file src=".\README.md" target=""/>
+    </files>
+</package>

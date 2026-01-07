@@ -28,12 +28,10 @@ jobs:
         run: >
           dotnet test --no-build --verbosity normal
           /p:CollectCoverage=true
-          /p:CoverletOutputFormat=lcov
-          /p:CoverletOutput=./lcov.info
+          /p:CoverletOutputFormat=opencover
           
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./lcov.info
           fail_ci_if_error: true

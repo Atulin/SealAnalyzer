@@ -6,19 +6,10 @@
         <Nullable>enable</Nullable>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
-
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <IncludeBuildOutput>false</IncludeBuildOutput>
-        <PackageId>Atulin.SealAnalyzer</PackageId>
-        <Version>1.0.0</Version>
-        <Authors>Atulin</Authors>
-        <Description>Analyzes classes and records that can be sealed.</Description>
-        <PackageTags>roslyn;analyzer;codefix;sealed</PackageTags>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/Atulin/SealAnalyzer</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Atulin/SealAnalyzer</RepositoryUrl>
+
         <DevelopmentDependency>true</DevelopmentDependency>
-        <NoPackageAnalysis>true</NoPackageAnalysis>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,29 +20,10 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\SealAnalyzer.CodeFixes\SealAnalyzer.CodeFixes.csproj" PrivateAssets="all" />
-    </ItemGroup>
-    <Target Name="PackAnalyzerDLLs" BeforeTargets="_GetPackageFiles">
-        <ItemGroup>
-            <None Include="$(OutputPath)$(AssemblyName).dll"
-                  Pack="true"
-                  PackagePath="analyzers/dotnet/cs"
-                  Visible="false" />
-            <None Include="$(OutputPath)SealAnalyzer.CodeFixes.dll"
-                  Pack="true"
-                  PackagePath="analyzers/dotnet/cs"
-                  Visible="false" />
-        </ItemGroup>
-    </Target>
+    
     <ItemGroup>
         <None Include="../README.md" Pack="true" Visible="false" PackagePath="\"/>
         <None Include="../LICENSE" Pack="true" Visible="false" PackagePath="\"/>
     </ItemGroup>
-
-    <Target Name="CopyCodeFixDll" AfterTargets="Build">
-        <Copy SourceFiles="..\SealAnalyzer.CodeFixes\bin\$(Configuration)\$(TargetFramework)\SealAnalyzer.CodeFixes.dll" DestinationFolder="$(OutputPath)" />
-    </Target>
 
 </Project>
