@@ -42,10 +42,7 @@
     </ItemGroup>
 
     <Target Name="CopyCodeFixDll" AfterTargets="Build">
-        <ItemGroup>
-            <CodeFixDlls Include="..\SealAnalyzer.CodeFixes\bin\$(Configuration)\netstandard2.0\SealAnalyzer.CodeFixes.dll" />
-        </ItemGroup>
-        <Copy SourceFiles="@(CodeFixDlls)" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="..\SealAnalyzer.CodeFixes\bin\$(Configuration)\$(TargetFramework)\SealAnalyzer.CodeFixes.dll" DestinationFolder="$(OutputPath)" />
     </Target>
 
 </Project>
