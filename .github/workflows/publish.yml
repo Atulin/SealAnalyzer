@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore
 
       - name: Build and Pack
-        run: dotnet pack ./SealAnalyzer/SealAnalyzer.csproj -c Release -o out
+        run: dotnet pack -c Release -o out--no-restore
 
       - name: NuGet.org registry Login
         uses: NuGet/login@v1
@@ -33,4 +33,4 @@ jobs:
           user: ${{ secrets.NUGET_USERNAME }}
 
       - name: Push to NuGet.org registry
-        run: dotnet nuget push out/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+        run: dotnet nuget push out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
