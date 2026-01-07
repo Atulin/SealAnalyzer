@@ -6,8 +6,9 @@
         <authors>Atulin</authors>
         <description>Analyzes classes and records that can be sealed.</description>
         <tags>analyzer source-generator code-fix roslyn</tags>
-        <license type="MIT"/>
-        <repository>https://github.com/Atulin/SealAnalyzer</repository>
+        <license type="expression">MIT</license>
+        <readme>.\README.md</readme>
+        <repository type="git">https://github.com/Atulin/SealAnalyzer</repository>
         <projectUrl>https://github.com/Atulin/SealAnalyzer</projectUrl>
     </metadata>
     <files>
