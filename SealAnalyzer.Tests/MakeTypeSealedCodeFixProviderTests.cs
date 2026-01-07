@@ -52,7 +52,9 @@ public class MakeTypeSealedCodeFixProviderTests
     public async Task CodeFix_AddsSealed_ToPublicClass_WithOptIn()
     {
         const string code = """
-            [assembly: AutoSeal.SealPublicClasses]
+            using AutoSeal;
+            
+            [assembly: SealPublicClasses]
 
             public class {|SEAL001:TestClass|}
             {
@@ -60,7 +62,9 @@ public class MakeTypeSealedCodeFixProviderTests
             """;
 
         const string fixedCode = """
-            [assembly: AutoSeal.SealPublicClasses]
+            using AutoSeal;
+            
+            [assembly: SealPublicClasses]
 
             public sealed class TestClass
             {
@@ -239,33 +243,7 @@ public class MakeTypeSealedCodeFixProviderTests
         if (includeGenerator)
         {
             test.TestState.AdditionalReferences.Add(typeof(SealPublicClassesGenerator).Assembly);
-            test.TestState.GeneratedSources.Add(
-                (typeof(SealPublicClassesGenerator), "SealPublicClassesAttribute.g.cs",
-                """
-                using System;
-
-                namespace AutoSeal
-                {
-                    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
-                    internal sealed class SealPublicClassesAttribute : Attribute 
-                    {
-                    }
-                }
-                """));
-            
-            test.FixedState.GeneratedSources.Add(
-                (typeof(SealPublicClassesGenerator), "SealPublicClassesAttribute.g.cs",
-                """
-                using System;
-
-                namespace AutoSeal
-                {
-                    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
-                    internal sealed class SealPublicClassesAttribute : Attribute 
-                    {
-                    }
-                }
-                """));
+            test.FixedState.AdditionalReferences.Add(typeof(SealPublicClassesGenerator).Assembly);
         }
 
         await test.RunAsync();

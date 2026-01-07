@@ -1,28 +1,36 @@
 ﻿name: publish
 on:
+  workflow_dispatch:
   push:
     tags:
-      - 'v*' # Run when a version tag is pushed
+      - 'v*'
 
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 10.x
+          dotnet-version: 10.0
 
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build and Pack
-        run: dotnet pack src/SealAnalyzer/SealAnalyzer.csproj -c Release -o out
+        run: dotnet pack ./SealAnalyzer/SealAnalyzer.csproj -c Release -o out
 
-      - name: Publish to NuGet
-        run: dotnet nuget push out/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: NuGet.org registry Login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USERNAME }}
+
+      - name: Push to NuGet.org registry
+        run: dotnet nuget push out/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
