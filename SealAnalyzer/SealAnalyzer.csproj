@@ -33,30 +33,25 @@
     <ItemGroup>
         <ProjectReference Include="..\SealAnalyzer.CodeFixes\SealAnalyzer.CodeFixes.csproj" PrivateAssets="all" />
     </ItemGroup>
-    
-    <ItemGroup>
-        <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-
-        <ProjectReference Include="..\SealAnalyzer.CodeFixes\SealAnalyzer.CodeFixes.csproj">
-            <PrivateAssets>all</PrivateAssets>
-            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-            <OutputItemType>Analyzer</OutputItemType>
-        </ProjectReference>
-    </ItemGroup>
-
+    <Target Name="PackAnalyzerDLLs" BeforeTargets="_GetPackageFiles">
+        <ItemGroup>
+            <None Include="$(OutputPath)$(AssemblyName).dll"
+                  Pack="true"
+                  PackagePath="analyzers/dotnet/cs"
+                  Visible="false" />
+            <None Include="$(OutputPath)SealAnalyzer.CodeFixes.dll"
+                  Pack="true"
+                  PackagePath="analyzers/dotnet/cs"
+                  Visible="false" />
+        </ItemGroup>
+    </Target>
     <ItemGroup>
         <None Include="../README.md" Pack="true" Visible="false" PackagePath="\"/>
         <None Include="../LICENSE" Pack="true" Visible="false" PackagePath="\"/>
     </ItemGroup>
 
-    <Target Name="_AddAnalyzerFiles" AfterTargets="ResolveProjectReferences">
-        <ItemGroup>
-            <None Include="@(ProjectReferenceWithConfiguration)"
-                  Condition="'%(Name)' == 'SealAnalyzer.CodeFixes'"
-                  Pack="true"
-                  PackagePath="analyzers/dotnet/cs"
-                  Visible="false" />
-        </ItemGroup>
+    <Target Name="CopyCodeFixDll" AfterTargets="Build">
+        <Copy SourceFiles="..\SealAnalyzer.CodeFixes\bin\$(Configuration)\$(TargetFramework)\SealAnalyzer.CodeFixes.dll" DestinationFolder="$(OutputPath)" />
     </Target>
 
 </Project>
