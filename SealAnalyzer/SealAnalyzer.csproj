@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <IsRoslynComponent>true</IsRoslynComponent>
+
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <PackageId>Atulin.SealAnalyzer</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Atulin</Authors>
+        <Description>Analyzes classes and records that can be sealed.</Description>
+        <PackageTags>roslyn;analyzer;codefix;sealed</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Atulin/SealAnalyzer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Atulin/SealAnalyzer</RepositoryUrl>
+        <DevelopmentDependency>true</DevelopmentDependency>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SealAnalyzer.CodeFixes\SealAnalyzer.CodeFixes.csproj" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\SealAnalyzer.CodeFixes.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+
+    <Target Name="CopyCodeFixDll" AfterTargets="Build">
+        <ItemGroup>
+            <CodeFixDlls Include="..\SealAnalyzer.CodeFixes\bin\$(Configuration)\netstandard2.0\SealAnalyzer.CodeFixes.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(CodeFixDlls)" DestinationFolder="$(OutputPath)" />
+    </Target>
+
+</Project>

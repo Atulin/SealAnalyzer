@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SealAnalyzer.CodeFixes/SealAnalyzer.CodeFixes.csproj" />
+  <Project Path="SealAnalyzer.Tests/SealAnalyzer.Tests.csproj" />
+  <Project Path="SealAnalyzer/SealAnalyzer.csproj" />
+</Solution>
